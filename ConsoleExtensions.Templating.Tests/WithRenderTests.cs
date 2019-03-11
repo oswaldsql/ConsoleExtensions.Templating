@@ -46,30 +46,4 @@ namespace ConsoleExtensions.Templating.Tests
       Assert.Equal("start||end", actual.ToString());
     }
   }
-
-  public class SubTemplateTests
-  {
-	  [Fact]
-	  public void GivenAObjectWithNoSubTemplate_WhenRegisteringATemplate_ThenTheRegisteredTemplateShouldBeUsed()
-	  {
-		  // Arrange
-		  var parser = new TemplateParser();
-		  var template = parser.Parse("{}");
-
-		  // Act
-		  var testProxy = new TestProxy();
-		  testProxy.WriteTemplate(template, this);
-		  var preTemplateResult = testProxy.ToString();
-
-		  parser.AddSubTemplate<SubTemplateTests>("Replaced with template");
-		  var testProxy2 = new TestProxy();
-		  testProxy2.WriteTemplate(template, this);
-		  var postTemplateResult = testProxy2.ToString();
-
-		  // Assert
-		  Assert.Equal("ConsoleExtensions.Templating.Tests.SubTemplateTests", preTemplateResult);
-		  Assert.Equal("Replaced with template", postTemplateResult);
-	  }
-
-  }
 }

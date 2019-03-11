@@ -50,7 +50,7 @@ namespace ConsoleExtensions.Templating.Tests
     public void GivenANestedPropertyName_WhenRendering_ThenSubstituteWithValue()
     {
       // Arrange
-      var substitutionRenderer = new SubstitutionRenderer("Value.Length", new Template());
+      var substitutionRenderer = new SubstitutionRenderer("Value.Length", new Template(new TemplateParser()));
       var consoleProxy = new TestProxy();
 
       // Act
@@ -67,7 +67,7 @@ namespace ConsoleExtensions.Templating.Tests
     public void GivenANullValue_WhenSubstituting_ThenReplaceWithEmptyString()
     {
       // Arrange
-      var substitutionRenderer = new SubstitutionRenderer("Value", new Template());
+      var substitutionRenderer = new SubstitutionRenderer("Value", new Template(new TemplateParser()));
       var consoleProxy = new TestProxy();
 
       // Act
@@ -84,7 +84,7 @@ namespace ConsoleExtensions.Templating.Tests
     public void GivenAPropertyNameWithFormatting_WhenRendering_ThenSubstituteWithFormattedValue()
     {
       // Arrange
-      var substitutionRenderer = new SubstitutionRenderer("Value:D5", new Template());
+      var substitutionRenderer = new SubstitutionRenderer("Value:D5", new Template(new TemplateParser()));
       var consoleProxy = new TestProxy();
 
       // Act
@@ -101,7 +101,7 @@ namespace ConsoleExtensions.Templating.Tests
     public void GivenASimplePropertyName_WhenRendering_ThenSubstituteWithThePropertyValue()
     {
       // Arrange
-      var substitutionRenderer = new SubstitutionRenderer("Value", new Template());
+      var substitutionRenderer = new SubstitutionRenderer("Value", new Template(new TemplateParser()));
       var consoleProxy = new TestProxy();
 
       // Act
@@ -118,7 +118,7 @@ namespace ConsoleExtensions.Templating.Tests
     public void GivenASimplePropertyNameWithWrongCasing_WhenRendering_ThenSubstituteWithEmptyString()
     {
       // Arrange
-      var substitutionRenderer = new SubstitutionRenderer("value", new Template());
+      var substitutionRenderer = new SubstitutionRenderer("value", new Template(new TemplateParser()));
       var consoleProxy = new TestProxy();
 
       // Act

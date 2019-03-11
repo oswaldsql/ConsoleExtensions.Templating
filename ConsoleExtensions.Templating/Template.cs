@@ -9,17 +9,20 @@
 
 	public class Template
 	{
-		public Template()
+		private readonly TemplateParser parser;
+
+		internal Template(TemplateParser parser)
 		{
-			Styles = new Dictionary<string, ConsoleStyle>();
-			SubTemplates = new Dictionary<Type, Template>();
+			this.parser = parser;
 		}
 
 		public Renderer RenderTree { get; set; }
 
-		public Dictionary<string, ConsoleStyle> Styles { get; internal set; }
+		public Dictionary<string, ConsoleStyle> Styles => this.parser.Style;
 
-		internal Dictionary<Type, Template> SubTemplates { get; set; }
+		internal Dictionary<Type, Template> TypeTemplates => this.parser.TypeTemplates;
+
+		internal Dictionary<Type, Func<object, object>> TypeConverters => this.parser.TypeConverters;
 
 		public void Render(IConsoleProxy proxy, object arg, CultureInfo culture = null)
 		{

@@ -46,8 +46,13 @@
 			}
 
 			var type = value.GetType();
-			if (this.Template.SubTemplates.TryGetValue(type, out var template))
+			if (this.Template.TypeTemplates.TryGetValue(type, out var template))
 			{
+				if (this.Template.TypeConverters.TryGetValue(type, out var converter))
+				{
+					value = converter(value);
+				}
+
 				proxy.WriteTemplate(template, value, culture);
 			}
 			else

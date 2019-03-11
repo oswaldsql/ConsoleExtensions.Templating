@@ -15,8 +15,8 @@
 			var proxy = ConsoleProxy.Instance();
 
 			var templateParser = TemplateParser.Default;
-			templateParser.AddSubTemplate<Version>("[c:white]{Major}[/].[c:white]{Minor}[/][if:Build].[c:white]{Build}[if:Revision].[c:white]{Revision}[/][/][/][/]");
-			templateParser.AddSubTemplate<AssemblyCopyrightAttribute>("Copyright : {Copyright}");
+			templateParser.AddTypeTemplate<Version>("[c:white]{Major}[/].[c:white]{Minor}[/][if:Build].[c:white]{Build}[if:Revision].[c:white]{Revision}[/][/][/][/]");
+			templateParser.AddTypeTemplate<AssemblyCopyrightAttribute>("Copyright : {Copyright}");
 			var assemblyInfoTemplate = templateParser.Parse("[foreach:attribs] {} [/] [hr/][with:version]Name : {Name} [br/] Version :{Version}[/] [br/]");
 
 

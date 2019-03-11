@@ -33,26 +33,34 @@
 					             }
 				             };
 
-			this.SubTemplates = new Dictionary<Type, Template>();
+			this.TypeTemplates = new Dictionary<Type, Template>();
+			this.TypeConverters = new Dictionary<Type, Func<object, object>>();
 		}
 
-		internal Dictionary<Type, Template> SubTemplates { get; }
+		internal Dictionary<Type, Template> TypeTemplates { get; }
 
-		public void AddSubTemplate<T>(string source)
+		public void AddTypeTemplate<T>(string source, Func<T, object> typeConverter = null)
 		{
 			if (source != null)
 			{
 				var template = this.Parse(source);
-				this.SubTemplates[typeof(T)] = template;
+				this.TypeTemplates[typeof(T)] = template;
 			}
 			else
 			{
-				if (this.SubTemplates.ContainsKey(typeof(T)))
+				if (this.TypeTemplates.ContainsKey(typeof(T)))
 				{
-					this.SubTemplates.Remove(typeof(T));
+					this.TypeTemplates.Remove(typeof(T));
 				}
 			}
+
+			if (typeConverter != null)
+			{
+				this.TypeConverters.Add(typeof(T), obj => typeConverter((T)obj));
+			}
 		}
+
+		public Dictionary<Type,Func<object, object>> TypeConverters { get; }
 
 		public static TemplateParser Default { get; } = new TemplateParser();
 
@@ -69,11 +77,7 @@
 
 		internal Template BuildTemplate(IEnumerable<Token.Token> tokens)
 		{
-			var result = new Template()
-				             {
-					             Styles = this.Style,
-								 SubTemplates = this.SubTemplates
-				             };
+			var result = new Template(this);
 
 			var renderers = this.BuildRenderTree(result, tokens.GetEnumerator());
 

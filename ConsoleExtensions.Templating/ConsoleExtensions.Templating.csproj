@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.9</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +15,6 @@
   <ItemGroup>
     <PackageReference Include="ConsoleExtensions.Proxy" Version="0.9.0-Dev" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
-    <PackageReference Include="System.Console" Version="4.3.1" />
   </ItemGroup>
 
 </Project>
