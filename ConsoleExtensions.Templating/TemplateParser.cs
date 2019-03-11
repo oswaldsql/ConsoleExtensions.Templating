@@ -41,7 +41,7 @@
 
 		public void AddTypeTemplate<T>(string source, Func<T, object> typeConverter = null)
 		{
-			if (source != null)
+			if (source != null || source == "{}" || source == "{.}")
 			{
 				var template = this.Parse(source);
 				this.TypeTemplates[typeof(T)] = template;
@@ -56,7 +56,7 @@
 
 			if (typeConverter != null)
 			{
-				this.TypeConverters.Add(typeof(T), obj => typeConverter((T)obj));
+				this.TypeConverters[typeof(T)] = obj => typeConverter((T)obj);
 			}
 		}
 

@@ -3,6 +3,8 @@
 // </copyright>
 namespace ConsoleExtensions.Templating.Tests
 {
+	using System;
+	using System.Collections.Generic;
 	using System.Linq;
 
 	using ConsoleExtensions.Proxy.TestHelpers;
@@ -53,6 +55,34 @@ namespace ConsoleExtensions.Templating.Tests
 			// Assert
 			Assert.Equal("ConsoleExtensions.Templating.Tests.SubTemplateTests", preTemplateResult);
 			Assert.Equal("stseTetalpmeTbuS", postTemplateResult);
+		}
+
+		[Fact]
+		public void GivenAGenericList_WhenRenderingUsingTypeTemplate_ThenTheExpectedOutcomeIsRendered()
+		{
+			// Arrange
+			var parser = new TemplateParser();
+			var template = parser.Parse("[foreach]{}[/]");
+
+			var source = new List<int>()
+				             {
+					             1, 2, 3
+				             };
+
+			// Act
+			var testProxy = new TestProxy();
+			testProxy.WriteTemplate(template, source);
+			var preTemplateResult = testProxy.ToString();
+
+			parser.AddTypeTemplate<int>("{v}", t => new{v = (10-t).ToString()});
+
+			var testProxy2 = new TestProxy();
+			testProxy2.WriteTemplate(template, source);
+			var postTemplateResult = testProxy2.ToString();
+
+			// Assert
+			Assert.Equal("123", preTemplateResult);
+			Assert.Equal("987", postTemplateResult);
 		}
 	}
 }

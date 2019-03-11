@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Globalization;
+	using System.Reflection;
 
 	using ConsoleExtensions.Proxy;
 
@@ -45,25 +46,42 @@
 				return;
 			}
 
-			var type = value.GetType();
-			if (this.Template.TypeTemplates.TryGetValue(type, out var template))
+			if (this.format != null && value is IFormattable formatValue)
 			{
-				if (this.Template.TypeConverters.TryGetValue(type, out var converter))
+				proxy.Write(formatValue.ToString(this.format, culture));
+				return;
+			}
+
+			if (this.RenderUsingTypeTemplates(proxy, culture, value))
+			{
+				return;
+			}
+
+			proxy.Write(string.Format(culture, "{0}", value));
+		}
+
+		private bool RenderUsingTypeTemplates(IConsoleProxy proxy, CultureInfo culture, object value)
+		{
+			if (this.format != null) return false;
+
+			var type = value.GetType();
+			while (type != null)
+			{
+				if (this.Template.TypeTemplates.TryGetValue(type, out var template))
 				{
-					value = converter(value);
+					if (this.Template.TypeConverters.TryGetValue(type, out var converter))
+					{
+						value = converter(value);
+					}
+
+					proxy.WriteTemplate(template, value, culture);
+					return true;
 				}
 
-				proxy.WriteTemplate(template, value, culture);
+				type = type.GetTypeInfo().BaseType;
 			}
-			else
-			if (this.format != null && value is IFormattable)
-			{
-				proxy.Write(((IFormattable)value).ToString(this.format, culture));
-			}
-			else
-			{
-				proxy.Write(string.Format(culture, "{0}", value));
-			}
+
+			return false;
 		}
 	}
 }
