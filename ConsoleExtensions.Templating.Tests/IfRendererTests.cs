@@ -21,7 +21,7 @@ namespace ConsoleExtensions.Templating.Tests
       var render = new IfRender();
 
       // Act
-      var actual = render.IsTruthy(value);
+      var actual = render.ShouldBeRendered(value);
 
       // Assert
       Assert.Equal(expected, actual);
@@ -36,13 +36,13 @@ namespace ConsoleExtensions.Templating.Tests
       var render = new IfRender();
 
       // Act
-      var byteActual = render.IsTruthy((byte)value);
-      var int16Actual = render.IsTruthy((short)value);
-      var int32Actual = render.IsTruthy(value);
-      var int64Actual = render.IsTruthy((short)value);
-      var decimalActual = render.IsTruthy((decimal)value);
-      var doubleActual = render.IsTruthy((double)value);
-      var floatActual = render.IsTruthy((float)value);
+      var byteActual = render.ShouldBeRendered((byte)value);
+      var int16Actual = render.ShouldBeRendered((short)value);
+      var int32Actual = render.ShouldBeRendered(value);
+      var int64Actual = render.ShouldBeRendered((short)value);
+      var decimalActual = render.ShouldBeRendered((decimal)value);
+      var doubleActual = render.ShouldBeRendered((double)value);
+      var floatActual = render.ShouldBeRendered((float)value);
 
       // Assert
       Assert.Equal(expected, byteActual);
@@ -80,7 +80,7 @@ namespace ConsoleExtensions.Templating.Tests
       var render = new IfRender();
 
       // Act
-      var actual = render.IsTruthy(source);
+      var actual = render.ShouldBeRendered(source);
 
       // Assert
       Assert.Equal(expected, actual);
@@ -96,7 +96,7 @@ namespace ConsoleExtensions.Templating.Tests
       var render = new IfRender();
 
       // Act
-      var actual = render.IsTruthy(source);
+      var actual = render.ShouldBeRendered(source);
 
       // Assert
       Assert.Equal(expected, actual);

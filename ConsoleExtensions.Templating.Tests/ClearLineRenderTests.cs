@@ -1,35 +1,55 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ClearLineRenderTests.cs" company="Lasse Sjørup">
+//   Copyright (c) 2019 Lasse Sjørup
+//   Licensed under the MIT license. See LICENSE file in the solution root for full license information.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace ConsoleExtensions.Templating.Tests
 {
-  using ConsoleExtensions.Proxy.TestHelpers;
+    using ConsoleExtensions.Proxy.TestHelpers;
 
-  using Xunit;
+    using Xunit;
 
-  public class ClearLineRenderTests
-  {
-    [Fact]
-    public void GivenTemplateWithClearLine_WhenRender_ThenClearRemandingIsRendered()
+    /// <summary>
+    ///     Class ClearLineRenderTests.
+    /// </summary>
+    public class ClearLineRenderTests
     {
-      // Arrange
-      var proxy = new TestProxy();
+        /// <summary>
+        ///     Given a template with clear line
+        ///     when render
+        ///     then clear remanding is rendered.
+        /// </summary>
+        [Fact]
+        public void GivenTemplateWithClearLine_WhenRender_ThenClearRemandingIsRendered()
+        {
+            // Arrange
+            var proxy = new TestProxy();
 
-      // Act
-      var actual = proxy.WriteTemplate("[ClearLine/]", new { Test = "test" });
+            // Act
+            var actual = proxy.WriteTemplate("[ClearLine/]", new { Test = "test" });
 
-      // Assert
-      Assert.Equal($"{new string(' ', 80)}", actual.ToString());
+            // Assert
+            Assert.Equal($"{new string(' ', 80)}", actual.ToString());
+        }
+
+        /// <summary>
+        ///     Given a template with clear line with content
+        ///     when render then
+        ///     content is ignored.
+        /// </summary>
+        [Fact]
+        public void GivenTemplateWithClearLineWithContent_WhenRender_ThenContentIsIgnored()
+        {
+            // Arrange
+            var proxy = new TestProxy();
+
+            // Act
+            var actual = proxy.WriteTemplate("start|[ClearLine]Tester[/]|end", new { Test = "test" });
+
+            // Assert
+            Assert.Equal($"start|{new string(' ', 74)}|end", actual.ToString());
+        }
     }
-
-    [Fact]
-    public void GivenTemplateWithClearLineWithContent_WhenRender_ThenContentIsIgnored()
-    {
-      // Arrange
-      var proxy = new TestProxy();
-
-      // Act
-      var actual = proxy.WriteTemplate("start|[ClearLine]Tester[/]|end", new { Test = "test" });
-
-      // Assert
-      Assert.Equal($"start|{new string(' ', 74)}|end", actual.ToString());
-    }
-  }
 }

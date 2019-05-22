@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ConsoleExtensions.Proxy.ConsoleImplementation" Version="0.9.0-Dev" />
+    <PackageReference Include="ConsoleExtensions.Proxy.ConsoleImplementation" Version="0.1.0-Dev" />
   </ItemGroup>
 
   <ItemGroup>
