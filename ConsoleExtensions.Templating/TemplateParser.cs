@@ -69,6 +69,7 @@ namespace ConsoleExtensions.Templating
         /// <typeparam name="T">The type to add a template to.</typeparam>
         /// <param name="templateString">The template string.</param>
         /// <param name="typeConverter">The type converter.</param>
+        /// <exception cref="T:ConsoleExtensions.Templating.InvalidTemplateException">Thrown if the tokens dos not match up.</exception>
         public void AddTypeTemplate<T>(string templateString, Func<T, object> typeConverter = null)
         {
             if (templateString != null)
@@ -95,6 +96,7 @@ namespace ConsoleExtensions.Templating
         /// </summary>
         /// <param name="templateString">The template string.</param>
         /// <returns>The resulting Template.</returns>
+        /// <exception cref="T:ConsoleExtensions.Templating.InvalidTemplateException">Thrown if the tokens dos not match up.</exception>
         public Template Parse(string templateString)
         {
             var tokens = new Tokenizer().Tokenize(templateString).Optimize();
