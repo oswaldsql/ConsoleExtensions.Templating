@@ -1,0 +1,778 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ConsoleExtensions.Templating</name>
+    </assembly>
+    <members>
+        <member name="T:ConsoleExtensions.Templating.InvalidTemplateException">
+            <summary>
+                Class InvalidTemplateException. Thrown when a template is invalid and can not be parsed.
+                Implements the <see cref="T:System.Exception" />
+            </summary>
+            <seealso cref="T:System.Exception" />
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.ClearLineRender">
+            <summary>
+                Class ClearLineRender. Used for rendering a clear line.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.ClearLineRender.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Instructs the renderer to render a clear line from the current position to the end of the window overwriting
+                anything in its way.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.ColorRender">
+            <summary>
+                Class ColorRender. Sets the console to render in a specific color.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.ColorRender.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Instructs the renderer change color to the specified value, render all SubRenderes and the change the color back to the original color.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.ColorRender.GetColorFromConfigValue">
+            <summary>
+                Gets the color from configuration value.
+            </summary>
+            <returns>A color derived from the configuration.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.CommandFactory">
+            <summary>
+                Class CommandFactory. Initializes the command that the template can use.
+            </summary>
+        </member>
+        <member name="F:ConsoleExtensions.Templating.Renderers.CommandFactory.commands">
+            <summary>
+                The commands available.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.CommandFactory.Create(ConsoleExtensions.Templating.Template,ConsoleExtensions.Templating.Token.Token)">
+            <summary>
+                Creates a render tree based on the token.
+            </summary>
+            <param name="template">The template.</param>
+            <param name="token">The token.</param>
+            <returns>The created renderer.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.EndRenderer">
+            <summary>
+                Class EndRenderer. Used as a placeholder of terminating a list of sub renderes.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.EndRenderer.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:ConsoleExtensions.Templating.Renderers.EndRenderer" /> class.
+            </summary>
+            <param name="substring">The substring.</param>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Renderers.EndRenderer.Substring">
+            <summary>
+                Gets the substring.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.EndRenderer.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Instructs the renderer to render to the supplied proxy.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.ForEachRender">
+            <summary>
+                Class ForEachRender. Iterates over a enumeration of objects and renders each using the nested template.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.ForEachRender.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Instructs the renderer to render to the supplied proxy.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.HrRender">
+            <summary>
+                Class HrRender. Renders a horizontal ruler from the current cursor point to the end of the window.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.HrRender.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Instructs the renderer to render to the supplied proxy.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.IfNotRender">
+            <summary>
+                Class IfNotRender. Renders the nested template if the argument in config is falsy.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Renderers.IfRender" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Renderers.IfRender" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.IfNotRender.ShouldBeRendered(System.Object)">
+            <summary>
+                Determines whether the specified SubRenderes should be rendered.
+            </summary>
+            <param name="clause">The clause.</param>
+            <returns><c>true</c> if the SubRenderes should be rendered; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.IfRender">
+            <summary>
+                Class IfRender. Renders the nested template if the argument in config is truthy. A value is truthy unless it is
+                false, 0, a empty string or array.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.IfRender.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Instructs the renderer to render to the supplied proxy.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.IfRender.ShouldBeRendered(System.Object)">
+            <summary>
+                Determines whether the specified SubRenderes should be rendered.
+            </summary>
+            <param name="clause">The clause.</param>
+            <returns><c>true</c> if the SubRenderes should be rendered; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.LineBreakRender">
+            <summary>
+                Class LineBreakRender. Renders a line break.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.LineBreakRender.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Instructs the renderer to render to the supplied proxy.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.Renderer">
+            <summary>
+                Class Renderer. Serves as a base class for all renderes.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Renderers.Renderer.IsClosed">
+            <summary>
+                Gets or sets a value indicating whether the renderer is self closing.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Renderers.Renderer.Config">
+            <summary>
+                Gets or sets the configuration of the renderer.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Renderers.Renderer.SubRenderes">
+            <summary>
+                Gets or sets the sub renderes.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Renderers.Renderer.Template">
+            <summary>
+                Gets or sets the template the renderer is based on.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.Renderer.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Instructs the renderer to render to the supplied proxy.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.Renderer.GetValueFromPropertyString(System.Object,System.String)">
+            <summary>
+                Gets the value from from a object based on the property name.
+            </summary>
+            <param name="arg">The object to get the value from.</param>
+            <param name="propertyName">The property name.</param>
+            <returns>The value of the property.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.RootRenderer">
+            <summary>
+                Class RootRenderer. Serves as the root of the template.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+        </member>
+        <member name="F:ConsoleExtensions.Templating.Renderers.RootRenderer.renderers">
+            <summary>
+                The renderers
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.RootRenderer.#ctor(ConsoleExtensions.Templating.Renderers.Renderer[])">
+            <summary>
+                Initializes a new instance of the <see cref="T:ConsoleExtensions.Templating.Renderers.RootRenderer" /> class.
+            </summary>
+            <param name="renderers">The renderers.</param>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.RootRenderer.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Instructs the renderer to render to the supplied proxy.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.StyleRender">
+            <summary>
+                Class StyleRender. Sets the front and back color of the console, renders the SubRenderes and reset to the previous
+                colors.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.StyleRender.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Instructs the renderer to render to the supplied proxy.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.SubstitutionRenderer">
+            <summary>
+                Class SubstitutionRenderer.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+        </member>
+        <member name="F:ConsoleExtensions.Templating.Renderers.SubstitutionRenderer.FormatSeparator">
+            <summary>
+                The format separator
+            </summary>
+        </member>
+        <member name="F:ConsoleExtensions.Templating.Renderers.SubstitutionRenderer.format">
+            <summary>
+                The format
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.SubstitutionRenderer.#ctor(System.String,ConsoleExtensions.Templating.Template)">
+            <summary>
+                Initializes a new instance of the <see cref="T:ConsoleExtensions.Templating.Renderers.SubstitutionRenderer" /> class.
+            </summary>
+            <param name="value">The arg.</param>
+            <param name="template">The template.</param>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Renderers.SubstitutionRenderer.PropertyName">
+            <summary>
+                Gets or sets the name of the property.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Renderers.SubstitutionRenderer.Config">
+            <summary>
+                Gets or sets the configuration.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.SubstitutionRenderer.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Instructs the renderer to render to the supplied proxy.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.SubstitutionRenderer.RenderUsingTypeTemplates(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                If a specific template has be registered to a type the template is rendered.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+            <returns><c>true</c> if a matching template was found, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.TextRenderer">
+            <summary>
+                Class TextRenderer. Renders the raw content of the template.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+        </member>
+        <member name="F:ConsoleExtensions.Templating.Renderers.TextRenderer.value">
+            <summary>
+                The value
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.TextRenderer.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:ConsoleExtensions.Templating.Renderers.TextRenderer" /> class.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.TextRenderer.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Instructs the renderer to render to the supplied proxy.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Renderers.WithRender">
+            <summary>
+                Class WithRender. Replaces the object to be renderes for the SubRenderes.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Renderers.Renderer" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Renderers.WithRender.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Instructs the renderer to render to the supplied proxy.
+            </summary>
+            <param name="proxy">The proxy to render to.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture to use for the render.</param>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Template">
+            <summary>
+                Class Template. Represents a template for rendering a object to a console proxy.
+            </summary>
+        </member>
+        <member name="F:ConsoleExtensions.Templating.Template.parser">
+            <summary>
+                The parser used for parsing the template.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Template.#ctor(ConsoleExtensions.Templating.TemplateParser)">
+            <summary>
+                Initializes a new instance of the <see cref="T:ConsoleExtensions.Templating.Template" /> class.
+            </summary>
+            <param name="parser">The parser used for parsing the templates.</param>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Template.RenderTree">
+            <summary>
+                Gets or sets the render tree.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Template.Styles">
+            <summary>
+                Gets the styles available in the parser.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Template.TypeConverters">
+            <summary>
+                Gets the type converters in the parser.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Template.TypeTemplates">
+            <summary>
+                Gets the type templates in the parser.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Template.Render(ConsoleExtensions.Proxy.IConsoleProxy,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Renders the specified proxy.
+            </summary>
+            <param name="proxy">The proxy.</param>
+            <param name="arg">The argument.</param>
+            <param name="culture">The culture.</param>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.TemplateParser">
+            <summary>
+                Class TemplateParser.
+            </summary>
+        </member>
+        <member name="F:ConsoleExtensions.Templating.TemplateParser.factory">
+            <summary>
+                The command factory used for mapping command names to actions.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.TemplateParser.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:ConsoleExtensions.Templating.TemplateParser" /> class.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.TemplateParser.Default">
+            <summary>
+                Gets the default template parser. Used if no template parser is specified.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.TemplateParser.Style">
+            <summary>
+                Gets the style mapped in the parser.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.TemplateParser.TypeConverters">
+            <summary>
+                Gets the type converters mapped in the parser. Used before a object is rendered by a type template.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.TemplateParser.TypeTemplates">
+            <summary>
+                Gets the type templates used for applying specific templates to specific types of objects.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.TemplateParser.AddTypeTemplate``1(System.String,System.Func{``0,System.Object})">
+            <summary>
+                Adds a type template.
+            </summary>
+            <typeparam name="T">The type to add a template to.</typeparam>
+            <param name="templateString">The template string.</param>
+            <param name="typeConverter">The type converter.</param>
+            <exception cref="T:ConsoleExtensions.Templating.InvalidTemplateException">Thrown if the tokens dos not match up.</exception>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.TemplateParser.Parse(System.String)">
+            <summary>
+                Parses the specified template string.
+            </summary>
+            <param name="templateString">The template string.</param>
+            <returns>The resulting Template.</returns>
+            <exception cref="T:ConsoleExtensions.Templating.InvalidTemplateException">Thrown if the tokens dos not match up.</exception>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.TemplateParser.BuildTemplate(System.Collections.Generic.IEnumerable{ConsoleExtensions.Templating.Token.Token})">
+            <summary>
+                Builds the template from a enumerable of tokens.
+            </summary>
+            <param name="tokens">The tokens.</param>
+            <returns>The resulting Template.</returns>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.TemplateParser.BuildRenderer(ConsoleExtensions.Templating.Template,System.Collections.Generic.IEnumerator{ConsoleExtensions.Templating.Token.Token},ConsoleExtensions.Templating.Token.Token)">
+            <summary>
+                Builds the renderer.
+            </summary>
+            <param name="template">The template.</param>
+            <param name="tokens">The tokens.</param>
+            <param name="token">The token.</param>
+            <returns>A root Renderer serving af the staring point of the render.</returns>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.TemplateParser.BuildRenderTree(ConsoleExtensions.Templating.Template,System.Collections.Generic.IEnumerator{ConsoleExtensions.Templating.Token.Token})">
+            <summary>
+                Builds the render tree.
+            </summary>
+            <param name="template">The template.</param>
+            <param name="tokens">The tokens.</param>
+            <returns>A list of Renderer.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.TemplatingExtension">
+            <summary>
+                Class TemplatingExtension.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.TemplatingExtension.WriteTemplate(ConsoleExtensions.Proxy.IConsoleProxy,System.String,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Writes the supplied object using the specified template.
+            </summary>
+            <param name="proxy">The proxy.</param>
+            <param name="template">The template as a string. The template is parsed using the default template parser.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture.</param>
+            <returns>The Console Proxy.</returns>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.TemplatingExtension.WriteTemplate(ConsoleExtensions.Proxy.IConsoleProxy,ConsoleExtensions.Templating.Template,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+                Writes the supplied object using the specified template.
+            </summary>
+            <param name="proxy">The proxy.</param>
+            <param name="template">The template.</param>
+            <param name="arg">The object to render.</param>
+            <param name="culture">The culture.</param>
+            <returns>The Console Proxy.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.TokenizerExtensions">
+            <summary>
+                Class TokenizerExtensions. Extends the token with a optimization method.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.TokenizerExtensions.Optimize(System.Collections.Generic.IEnumerable{ConsoleExtensions.Templating.Token.Token})">
+            <summary>
+                Optimizes the specified tokens.
+            </summary>
+            <param name="tokens">The tokens to be optimized.</param>
+            <returns>A Enumerable of tokens.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Token.CommandToken">
+            <summary>
+                Class CommandToken. Represents a token that is translated to a command.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Token.Token" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Token.Token" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.CommandToken.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:ConsoleExtensions.Templating.Token.CommandToken" /> class.
+            </summary>
+            <param name="substring">The substring.</param>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Token.CommandToken.Type">
+            <summary>
+                Gets the type of command.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.CommandToken.ToString">
+            <summary>
+                Returns a <see cref="T:System.String" /> that represents this instance as a string.
+            </summary>
+            <returns>A <see cref="T:System.String" /> that represents this instance.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Token.EndCommandToken">
+            <summary>
+            Class EndCommandToken. Represents the end of a command.
+            Implements the <see cref="T:ConsoleExtensions.Templating.Token.Token" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Token.Token" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.EndCommandToken.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ConsoleExtensions.Templating.Token.EndCommandToken"/> class.
+            </summary>
+            <param name="substring">The substring.</param>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Token.EndCommandToken.Type">
+            <summary>
+            Gets the type of the token.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.EndCommandToken.ToString">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <returns>A <see cref="T:System.String" /> that represents this instance.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Token.Iterator">
+            <summary>
+                Class Iterator. Works as a extended char array.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.Iterator.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:ConsoleExtensions.Templating.Token.Iterator" /> class.
+            </summary>
+            <param name="source">The source.</param>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Token.Iterator.Chars">
+            <summary>
+                Gets the chars representing the original string.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Token.Iterator.Current">
+            <summary>
+                Gets the char at the current index.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Token.Iterator.Eol">
+            <summary>
+                Gets a value indicating whether this <see cref="T:ConsoleExtensions.Templating.Token.Iterator" /> is end of line.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Token.Iterator.Index">
+            <summary>
+                Gets the index of the pointer.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Token.Iterator.Length">
+            <summary>
+                Gets the length of the string.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Token.Iterator.Next">
+            <summary>
+                Gets the next char and moves the pointer.
+            </summary>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Token.Iterator.Start">
+            <summary>
+                Gets the start position of the current substring.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.Iterator.GetExternal">
+            <summary>
+                Gets the string formed by the chars from start to the current index including the stop chars.
+            </summary>
+            <returns>The sub string formed by the delimiters.</returns>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.Iterator.GetInternal">
+            <summary>
+                Gets the string formed by the chars from start to the current index excluding the stop chars.
+            </summary>
+            <returns>The sub string formed by the delimiters.</returns>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.Iterator.Iterate(System.Int32)">
+            <summary>
+                Moved the current index the specified count.
+            </summary>
+            <param name="count">The count.</param>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.Iterator.IterateUntil(System.Char[])">
+            <summary>
+                moved the index until one of the stop chars are found.
+            </summary>
+            <param name="stopChars">The stop chars.</param>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.Iterator.ResetStart">
+            <summary>
+                Resets the start to the specified index.
+            </summary>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Token.RawTextToken">
+            <summary>
+                Class RawTextToken. Represents a token containing raw text to be rendered.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Token.Token" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Token.Token" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.RawTextToken.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:ConsoleExtensions.Templating.Token.RawTextToken" /> class.
+            </summary>
+            <param name="substring">The substring.</param>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.RawTextToken.#ctor(ConsoleExtensions.Templating.Token.Token,ConsoleExtensions.Templating.Token.Token)">
+            <summary>
+                Initializes a new instance of the <see cref="T:ConsoleExtensions.Templating.Token.RawTextToken" /> class.
+            </summary>
+            <param name="first">The first token.</param>
+            <param name="second">The second token.</param>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Token.RawTextToken.Type">
+            <summary>
+                Gets the type of the token.
+            </summary>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Token.SubstitutionToken">
+            <summary>
+                Class SubstitutionToken. Represents a token that serves as a placeholder for values.
+                Implements the <see cref="T:ConsoleExtensions.Templating.Token.Token" />
+            </summary>
+            <seealso cref="T:ConsoleExtensions.Templating.Token.Token" />
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.SubstitutionToken.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:ConsoleExtensions.Templating.Token.SubstitutionToken" /> class.
+            </summary>
+            <param name="substring">The substring.</param>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Token.SubstitutionToken.Type">
+            <summary>
+                Gets the type of the token.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.SubstitutionToken.ToString">
+            <summary>
+                Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <returns>A <see cref="T:System.String" /> that represents this instance.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Token.Token">
+            <summary>
+                Class Token. Serves as a base class for tokens.
+            </summary>
+        </member>
+        <member name="F:ConsoleExtensions.Templating.Token.Token.Substring">
+            <summary>
+                The substring representing the token.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.Token.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:ConsoleExtensions.Templating.Token.Token" /> class.
+            </summary>
+            <param name="substring">The substring.</param>
+        </member>
+        <member name="P:ConsoleExtensions.Templating.Token.Token.Type">
+            <summary>
+                Gets the type.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.Token.ToString">
+            <summary>
+                Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <returns>A <see cref="T:System.String" /> that represents this instance.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Token.Tokenizer">
+            <summary>
+                Class Tokenizer. Converts a string to a enumeration of tokens.
+            </summary>
+        </member>
+        <member name="F:ConsoleExtensions.Templating.Token.Tokenizer.Tokenizers">
+            <summary>
+                The tokenizers.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.Tokenizer.#cctor">
+            <summary>
+                Initializes static members of the <see cref="T:ConsoleExtensions.Templating.Token.Tokenizer" /> class.
+            </summary>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.Tokenizer.Tokenize(System.String)">
+            <summary>
+                Tokenizes the specified template string.
+            </summary>
+            <param name="templateString">The templateString.</param>
+            <returns>A Enumerable of Tokens.</returns>
+            <exception cref="T:ConsoleExtensions.Templating.InvalidTemplateException">Thrown if the tokens dos not match up.</exception>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.Tokenizer.RawToken(ConsoleExtensions.Templating.Token.Iterator)">
+            <summary>
+                Iterates until the next stop character.
+            </summary>
+            <param name="iterator">The iterator.</param>
+            <returns>A Token containing the text until next stop char.</returns>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.Tokenizer.TokenizeCommand(ConsoleExtensions.Templating.Token.Iterator)">
+            <summary>
+                Creates a command token from the next part of the string.
+            </summary>
+            <param name="iterator">The iterator.</param>
+            <returns>A command token.</returns>
+        </member>
+        <member name="M:ConsoleExtensions.Templating.Token.Tokenizer.TokenizeSubstitution(ConsoleExtensions.Templating.Token.Iterator)">
+            <summary>
+                Creates a substitution token from the next part of the string.
+            </summary>
+            <param name="iterator">The iterator.</param>
+            <returns>A substitution token.</returns>
+        </member>
+        <member name="T:ConsoleExtensions.Templating.Token.TokenType">
+            <summary>
+                Enum TokenType. Defines the types of token that can be parsed.
+            </summary>
+        </member>
+        <member name="F:ConsoleExtensions.Templating.Token.TokenType.Substitution">
+            <summary>
+                The substitution token used as placeholder for values.
+            </summary>
+        </member>
+        <member name="F:ConsoleExtensions.Templating.Token.TokenType.Text">
+            <summary>
+                The text token used for raw text.
+            </summary>
+        </member>
+        <member name="F:ConsoleExtensions.Templating.Token.TokenType.Command">
+            <summary>
+                The command token used for the different commands.
+            </summary>
+        </member>
+        <member name="F:ConsoleExtensions.Templating.Token.TokenType.EndCommand">
+            <summary>
+                The end command used as a placeholder for ending iterations.
+            </summary>
+        </member>
+    </members>
+</doc>
